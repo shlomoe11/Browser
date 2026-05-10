@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nexus Browser</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -508,7 +509,20 @@ html, body {
     <div class="pw-wordmark">NEXUS_V1</div>
     <div class="pw-sub">דפדפן אינטרנט · כניסה מאובטחת</div>
     <div class="pw-error" id="pw-error">הגישה נדחתה. החשבון אינו מורשה.</div>
-    <div id="google-signin-btn"></div>
+    <div id="g_id_onload"
+         data-client_id="166751855372-qr7libu2bogc4e3n20tnvmc34tlij8op.apps.googleusercontent.com"
+         data-callback="onGoogleSignIn"
+         data-auto_prompt="false">
+    </div>
+    <div class="g_id_signin"
+         data-type="standard"
+         data-size="large"
+         data-theme="outline"
+         data-text="signin_with"
+         data-shape="rectangular"
+         data-logo_alignment="left"
+         data-locale="he">
+    </div>
   </div>
 </div>
 
@@ -1148,35 +1162,6 @@ function escHtml(s) {
 window.addEventListener('DOMContentLoaded', () => {
   checkStoredPassword();
 });
-
-function initGoogleSignIn() {
-  // אם הסיסמה כבר שמורה — לא צריך את הכפתור
-  if (localStorage.getItem('nexus_pass')) return;
-
-  const CLIENT_ID = '166751855372-1mbvoqnuui1fah05sa4f2al27em4h3ht.apps.googleusercontent.com';
-
-  function renderBtn() {
-    if (typeof google === 'undefined' || !google.accounts) return;
-    google.accounts.id.initialize({
-      client_id: CLIENT_ID,
-      callback: onGoogleSignIn,
-      auto_select: false
-    });
-    google.accounts.id.renderButton(
-      document.getElementById('google-signin-btn'),
-      { theme: 'outline', size: 'large', text: 'signin_with', locale: 'he', width: 240 }
-    );
-  }
-
-  // אם ספריית Google כבר נטענה — רנדר מיד, אחרת המתן
-  if (typeof google !== 'undefined' && google.accounts) {
-    renderBtn();
-  } else {
-    const script = document.querySelector('script[src*="accounts.google.com/gsi/client"]');
-    if (script) script.addEventListener('load', renderBtn);
-  }
-}
 </script>
-<script src="https://accounts.google.com/gsi/client" onload="initGoogleSignIn()"></script>
 </body>
 </html>
