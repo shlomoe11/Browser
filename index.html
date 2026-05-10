@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nexus Browser</title>
-<script src="https://accounts.google.com/gsi/client"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -1148,7 +1147,6 @@ function escHtml(s) {
 ───────────────────────────────────────────── */
 window.addEventListener('DOMContentLoaded', () => {
   checkStoredPassword();
-  initGoogleSignIn();
 });
 
 function initGoogleSignIn() {
@@ -1179,5 +1177,6 @@ function initGoogleSignIn() {
   }
 }
 </script>
+<script src="https://accounts.google.com/gsi/client" onload="initGoogleSignIn()"></script>
 </body>
 </html>
